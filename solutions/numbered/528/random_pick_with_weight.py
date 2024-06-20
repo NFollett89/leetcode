@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/random-pick-with-weight/
+
 import random
 
 class Solution:
