@@ -1,0 +1,48 @@
+# https://leetcode.com/problems/add-two-numbers/
+#
+# Intuition:
+# - Increment the sum by traversing the LL's one at a time, then create a new LL to return
+# - With each increasing depth i, we need to multiply that digit by 10^i
+#
+# Retro:
+# - I needed practice working with LL's. I remember the fundamentals from
+#   school but was tripped up by off-by-one problems.
+# - This solution is probably not the intended one, but before I had more time
+#   to conceptualize everything it seemed the most straight forward.
+# - This solution beat 95% for memory, but only 5% for runtime. So, I'll
+#   implement again creating the new LL as I go
+#
+#
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+#
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        sum = 0
+        for l in (l1, l2):
+            power = 0
+            while True:
+                print("Sum: ", sum)
+                sum += l.val * 10**power
+                power += 1
+                if not l.next:
+                    break
+                l = l.next
+        print(sum)
+        return self._convertLL(sum)
+    
+    def _convertLL(self, num: int) -> Optional[ListNode]:
+        head = ListNode()
+        curr = head
+        s = str(num)
+        l = len(s)
+        for i, num in enumerate(reversed(s)):
+            curr.val = int(num)
+            if i != (l - 1):
+                curr.next = ListNode()
+                curr = curr.next
+        return head
+
